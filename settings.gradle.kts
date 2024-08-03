@@ -34,6 +34,7 @@ rootProject.name = "Keiyoushi"
  * Add or remove modules to load as needed for local development here.
  */
 loadAllIndividualExtensions()
+loadKoharuExtensions()
 // loadIndividualExtension("all", "mangadex")
 
 /**
@@ -60,6 +61,22 @@ fun loadAllIndividualExtensions() {
 }
 fun loadIndividualExtension(lang: String, name: String) {
     include("src:$lang:$name")
+}
+
+fun loadKoharuExtensions() {
+    val src = "koharu/src"
+    val srcInclude = src.replace('/', ':')
+    File(rootDir, src).eachDir { dir ->
+        dir.eachDir { subdir ->
+            include("${srcInclude}:${dir.name}:${subdir.name}")
+        }
+    }
+
+    val lib = "koharu/lib"
+    val libInclude = lib.replace('/', ':')
+    File(rootDir, lib).eachDir { dir ->
+        include("${libInclude}:${dir.name}")
+    }
 }
 
 fun File.eachDir(block: (File) -> Unit) {
