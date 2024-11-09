@@ -29,9 +29,11 @@ import java.text.SimpleDateFormat
 import java.util.Locale
 
 class Koharu : HttpSource(), ConfigurableSource {
-    override val name = "Koharu"
+    override val name = "SchaleNetwork"
 
-    override val baseUrl = "https://koharu.to"
+    override val id = 1484902275639232927
+
+    override val baseUrl = "https://schale.network"
 
     private val apiUrl = baseUrl.replace("://", "://api.")
 
@@ -234,7 +236,7 @@ class Koharu : HttpSource(), ConfigurableSource {
 
         author = (circles.emptyToNull() ?: artists).joinToString { it.capitalizeEach() }
         artist = artists.joinToString { it.capitalizeEach() }
-        genre = (tags + males + females + mixed).joinToString { it.capitalizeEach() }
+        genre = (tags + males + females + mixed + other).joinToString { it.capitalizeEach() }
         description = buildString {
             circles.joinAndCapitalizeEach()?.let {
                 append("Circles: ", it, "\n")
